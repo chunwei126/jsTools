@@ -1,0 +1,9 @@
+方法一、
+將dist裡的
+css > lightbox.min.css 放入專案 css
+images > 所有圖片 放入專案 images
+js > lightbox.min.js 放入專案 JavaScript
+並將其用 link 載入專案
+
+方法二、
+使用 CDN 載入

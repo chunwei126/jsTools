@@ -1,0 +1,24 @@
+1.使關閉箭在右上角
+#lightbox {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+2.背景顏色
+.lightboxOverlay {
+  background-color: rgba(0, 0, 0, 0.7);
+  opacity: 0.5;
+}
+
+3.popup效果
+<script>
+  function pop(){
+    document.querySelector('.test').click();
+  } 
+
+  setTimeout(pop,1000)
+</script>
+
+官網：https://lokeshdhakar.com/projects/lightbox2/#options
+
+注意：要載入jQuery才可以使用該lightbox2

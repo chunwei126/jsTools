@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<style>
+  nav li a{
+    display: block;
+  }
+
+  div{
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+    margin: 800px;
+  }
+
+  
+</style>
+
+<body>
+
+  <nav class="menu" style="position:fixed; top:0; left:0;">
+    <h1><img src="https://fakeimg.pl/250x100/"></h1>
+    <ul>
+      <li data-menuIndex="1"><a>1</a></li>
+      <li data-menuIndex="2"><a>2</a></li>
+      <li data-menuIndex="3"><a>3</a></li>
+      <li data-menuIndex="4"><a>4</a></li>
+      <li data-menuIndex="5"><img src="https://fakeimg.pl/100x100/" style="display:block; width:100%;"></li>
+    </ul>
+  </nav>
+
+
+
+  <div class="menuScroll-1">a</div>
+  <div class="menuScroll-2">b</div>
+  <div class="menuScroll-3">c</div>
+  <div class="menuScroll-4">d</div>
+  <div class="menuScroll-5">e</div>
+  <div class="menuScroll-5">h1111111</div>
+  
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+    $( document ).ready(function() {
+      
+      //點擊菜單滑動至指定區塊
+      $('.menu li').click(function(e){
+        
+        //判斷是否點擊到 “立即購買” 圖片
+        if(e.target.nodeName == "IMG"){
+          console.log('imggggg')
+          return
+        }
+
+        $('html,body').animate({scrollTop:$('.menuScroll' + '-'+ this.dataset.menuindex).offset().top}, 500);
+      });
+
+      //點擊Logo滑動至頂部
+      $('h1').click(function(e){
+        $('html,body').animate({scrollTop: '0px'}, 500);
+      })
+
+    });
+  </script>
+
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<style>
+  @keyframes zoom{
+    0%{ font-size: 16px; }
+    50%{ font-size: 17px; }
+    100%{ font-size: 16px; }
+  }
+</style>
+
+<body>
+
+  <h1 class="text-center" id="count-down-timer"></h1>
+
+
+  <script>
+    function paddedFormat(num) {
+      return num < 10 ? "0" + num : num; 
+    }
+
+    function startCountDown(duration, element) {
+      let secondsRemaining = duration;
+      let min = 0;
+      let sec = 0;
+
+      let countInterval = setInterval(function () {
+
+        min = parseInt(secondsRemaining / 60);
+        sec = parseInt(secondsRemaining % 60);
+
+        element.textContent = `${paddedFormat(min)}:${paddedFormat(sec)}`;
+
+        secondsRemaining = secondsRemaining - 1;
+        if (secondsRemaining < 0) { 
+          clearInterval(countInterval)
+           
+          // 控制倒數結束後的 Time's Up
+          element.textContent = "Time's Up"
+          element.style.animation = "1s zoom infinite"
+        
+        };
+
+      }, 1000);
+    }
+
+    window.onload = function () {
+      let time_minutes = 0; // 分
+      let time_seconds = 3; // 秒
+
+      let duration = time_minutes * 60 + time_seconds;
+
+      element = document.querySelector('#count-down-timer');
+      element.textContent = `${paddedFormat(time_minutes)}:${paddedFormat(time_seconds)}`;
+
+      startCountDown(--duration, element);
+    };
+  </script>
+</body>
+</html>

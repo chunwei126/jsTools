@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.questionList{
+  margin: 0 auto;
+  max-width: 500px
+}
+.question{
+  border: 1px solid gray;
+  padding: 5px;
+  font-size: 18px;
+  margin: 0 0 -1px 0;
+}
+.question:hover,.question.active{
+  background: blue;
+  color:#fff;
+}
+.answer{
+  font-size: 18px;
+  overflow: hidden;
+  transition: .3s;
+}
+  </style>
+</head>
+<body>
+  <div class="questionList">
+    <div class="item">
+      <p class="question" data-item="0">1.請問1+1=多少</p>
+      <p class="answer">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, impedit necessitatibus at accusantium eos, quo autem ducimus odit temporibus, est exercitationem deleniti. Consequuntur repudiandae magni rem iusto ipsa ab vero!</p>
+    </div>
+    <div class="item">
+      <p class="question" data-item="1">2.那假如是2+2的話呢</p>
+      <p class="answer">Lorem ipsum dolor sit amet consectetur, adipisicing elit. A suscipit asperiores obcaecati, voluptates at neque iusto soluta dignissimos cupiditate excepturi consequuntur error? Explicabo similique repellendus mollitia quas velit et sunt!</p>
+    </div>
+    <div class="item">
+      <p class="question" data-item="2">3.ok，所以3+3就等於7嘍</p>
+      <p class="answer">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum aperiam delectus debitis officia, expedita, minima explicabo veritatis veniam nostrum obcaecati nesciunt? Est, autem incidunt? Ullam maiores debitis perspiciatis corporis sed?</p>
+    </div>
+  </div>
+  <script>
+    const question = document.querySelectorAll('.question');
+    const answer = document.querySelectorAll('.answer');
+    let answerHeight = [];
+
+    init();
+
+    function init(){
+      answer.forEach(function(item){
+        answerHeight.push(item.offsetHeight);
+        item.style.height = '0px';
+        item.style.padding = '0px';
+      })
+      question[0].classList.add('active');
+      answer[0].style.height = `${answerHeight[0]}px`;
+      answer[0].style.padding = "2% 0";
+    }
+
+    document.querySelector('.questionList').addEventListener('click',function(e){
+
+      //判斷是否點擊到問題
+      if(e.target.classList.contains('question')){
+        const questionNum =  e.target.dataset.item;
+
+        if(e.target.classList.contains('active')){
+          question[questionNum].classList.remove('active');
+          answer[questionNum].style.height = '0px';
+          answer[questionNum].style.padding = '0';
+          return
+        }else{
+          //讓所有答案都先關閉
+          question.forEach(function(item,index){
+            item.classList.remove('active'); //不需要讓問題增加 class 的話可刪除此行（記得也把 css 刪除！）
+            answer[index].style.height = '0px';
+            answer[index].style.padding = '0';
+          })
+          //打開點擊的問題的答案
+          question[questionNum].classList.add('active'); //不需要讓問題增加 class 的話可刪除此行（記得也把 css 刪除！）
+          answer[questionNum].style.height = `${answerHeight[questionNum]}px`;
+          answer[questionNum].style.padding = "2% 0";
+        }
+      }
+    })
+  </script>
+</body>
+</html>

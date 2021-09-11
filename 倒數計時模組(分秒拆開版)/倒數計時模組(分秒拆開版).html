@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <style>
+    .minutes{
+      font-size: 20px;
+    }
+    .seconds{
+      font-size: 20px;
+    }
+    .colon{
+      font-size: 20px;
+    }
+    .TimesUp{
+      display: none;
+    }
+    .TimesUp.show{
+      display: block;
+      animation: 1s scale infinite;
+    }
+
+    @keyframes scale {
+      0% {
+        font-size: 16px;
+      }
+      50% {
+        font-size: 17px;
+      }
+      100% {
+        font-size: 16px;
+      }
+    }
+  </style>
+
+  <body>
+
+    <div>
+      <span class="minutes"></span>
+      <span class="colon">:</span>
+      <span class="seconds"></span>
+      <span class="TimesUp">Time's Up</span>
+    </div>
+
+    <script>
+      function paddedFormat(num) {
+        return num < 10 ? "0" + num : num;
+      }
+
+      function startCountDown(duration, minutes, seconds) {
+        let secondsRemaining = duration;
+        let min = 0;
+        let sec = 0;
+
+        let countInterval = setInterval(function () {
+          min = parseInt(secondsRemaining / 60);
+          sec = parseInt(secondsRemaining % 60);
+
+          minutes.textContent = `${paddedFormat(min)}`;
+          seconds.textContent = `${paddedFormat(sec)}`;
+
+          secondsRemaining = secondsRemaining - 1;
+          if (secondsRemaining < 0) {
+            clearInterval(countInterval);
+
+            // 控制倒數結束後的 Time's Up
+            minutes.style.display = 'none';
+            seconds.style.display = 'none';
+            document.querySelector('.colon').style.display = 'none';
+            document.querySelector('.TimesUp').classList.add('show');
+          }
+        }, 1000);
+      }
+
+      window.onload = function () {
+        let time_minutes = 0; // 分
+        let time_seconds = 3; // 秒
+
+        let duration = time_minutes * 60 + time_seconds;
+
+        minutes = document.querySelector(".minutes");
+        minutes.textContent = `${paddedFormat(time_minutes)}`;
+
+        seconds = document.querySelector(".seconds");
+        seconds.textContent = `${paddedFormat(time_seconds)}`;
+
+        startCountDown(--duration, minutes, seconds);
+      };
+    </script>
+  </body>
+</html>

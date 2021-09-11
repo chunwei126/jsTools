@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style type="text/css"> 
+  body{ 
+  text-align: center; 
+  } 
+   
+  h1{ 
+  color: #396; 
+  font-weight: 100; 
+  font-size: 40px; 
+  margin: 40px 0px 20px; 
+  } 
+   
+  #clockdiv{ 
+    font-family: sans-serif; 
+    color: black; 
+    display: inline-block; 
+    font-weight: 100; 
+    text-align: center; 
+    font-size: 20px; 
+    border: 1px solid black;
+    padding: 10px;
+  } 
+   
+  #clockdiv span{ 
+    border-radius: 3px; 
+    display: inline-block; 
+  } 
+
+  .colon{
+    font-size: 25px;
+  }
+
+  #clockdiv .timesUp{
+    display: none;
+  }
+    </style> 
+</head>
+<body>
+  <h1>倒數計時模組</h1> 
+<div id="clockdiv"> 
+  <span class="days"></span> 
+  <span class="hours"></span>
+  <span class='colon'>:</span>
+  <span class="minutes"></span>
+  <span class='colon'>:</span>
+  <span class="seconds"></span>
+  <!-- <span class='timesUp'>時間到！</span> -->
+</div> 
+<script type="text/javascript"> 
+  function getTimeRemaining(endtime) { 
+  const total = Date.parse(endtime) - Date.parse(new Date()); 
+  const seconds = Math.floor((total / 1000) % 60); 
+  const minutes = Math.floor((total / 1000 / 60) % 60); 
+  const hours = Math.floor((total / (1000 * 60 * 60)) % 24); 
+  const days = Math.floor(total / (1000 * 60 * 60 * 24)); 
+   
+  return { 
+    total, 
+    days, 
+    hours, 
+    minutes, 
+    seconds 
+  }; 
+} 
+ 
+function initializeClock(id, endtime) { 
+  const clock = document.getElementById(id); 
+  const daysSpan = clock.querySelector('.days'); 
+  const hoursSpan = clock.querySelector('.hours'); 
+  const minutesSpan = clock.querySelector('.minutes'); 
+  const secondsSpan = clock.querySelector('.seconds');
+  const colon = document.querySelector('.colon');
+  const clockdiv = document.getElementById('clockdiv');
+ 
+  function updateClock() { 
+    const t = getTimeRemaining(endtime); 
+ 
+    daysSpan.innerHTML = t.days + '天'; 
+    hoursSpan.innerHTML = ('0' + t.hours).slice(-2); 
+    minutesSpan.innerHTML = ('0' + t.minutes).slice(-2); 
+    secondsSpan.innerHTML = ('0' + t.seconds).slice(-2); 
+    if(t.days == 0 ){
+      daysSpan.style.display = 'none';
+    }else{
+      hoursSpan.style.display = 'none';
+      minutesSpan.style.display = 'none';
+      secondsSpan.style.display = 'none';
+    }
+
+    if (t.total <= 0) {
+      daysSpan.style.display = 'none';
+      hoursSpan.style.display = 'none';
+      minutesSpan.style.display = 'none';
+      secondsSpan.style.display = 'none';
+      clockdiv.innerHTML = `<span style='color:red'>Delay</span>`;
+      clearInterval(timeinterval);
+    } 
+  } 
+ 
+  updateClock(); 
+  const timeinterval = setInterval(updateClock, 1000); 
+} 
+
+//台灣：GMT+8
+const deadline = 'April 20 2021 23:03:50 GMT+0800'; 
+console.log(deadline);
+initializeClock('clockdiv', deadline); 
+</script> 
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<style>
+  .popupBg{
+    width:100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top:0;
+    left: 0;
+    z-index: 2;
+    display: none;
+  }
+  .popup{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 720px;
+  }
+  .popup_closeBtn{
+    position: absolute;
+    top: -5%;
+    right: 5%;
+    color: white;
+    font-weight: bold;
+    font-size: 50px;
+  }
+
+/*RWD依照個人需求調整*/
+
+</style>
+
+<body>
+
+  <div class="popupBg">
+    <div class="popup">
+      <img src="/resources/AB/rara_mday21/images/210602_clock_popup.png" >
+      <a class="popup_closeBtn" href="javascript:">X</a>
+    </div>
+  </div>
+
+  <script>
+    //尚未載入jQuery
+
+     //載入網頁後的5秒開啟
+     setTimeout(function(){
+        $('.popupBg').fadeIn();
+        rb_float_frame.style.display = "NONE";
+      },5000);
+
+      //手動關閉
+	  $('.popupBg').click(function(){
+        $('.popupBg').fadeOut();
+        rb_float_frame.style.display = "BLOCK";
+      })
+
+      //開啟後的3秒後關閉
+      setTimeout(function(){
+        if($('.popupBg').css('display') == "block"){
+          $('.popupBg').fadeOut();
+		  rb_float_frame.style.display = "BLOCK";
+        }
+      },10000);
+  </script>
+</body>
+</html>
